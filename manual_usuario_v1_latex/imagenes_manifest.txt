@@ -1,0 +1,12 @@
+Archivo                         Uso
+interfaz_inicial.png            Portada e interfaz principal
+comandos_ayuda.png              Lista de comandos disponibles
+contexto_estudiante.png         Registro del estudiante
+contexto_grupo.png              Registro del grupo activo
+mostrar_lecciones.png           Verificación de lecciones
+iniciar_tutor.png               Inicio del tutor educativo
+explicacion_fracciones.png      Ejemplo de explicación guiada
+estado_vision.png               Diagnóstico local de visión
+
+Las capturas se obtuvieron de la interfaz local de ClaudIA el 9 de noviembre
+de 2026. No contienen datos personales reales.

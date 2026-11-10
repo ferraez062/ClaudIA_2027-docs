@@ -1,0 +1,17 @@
+Documento: main_editable.pdf
+Título: ClaudIA: Sistema Inteligente de Acompañamiento Didáctico para Grupos DGETI
+Fecha de verificación: 2026-11-09
+Paginas del documento: 31
+Paginas del ejemplo EDU Bot: 31
+Diferencia de extension: 0
+Tamaño de pagina: 612 x 792 pts (letter)
+Version de PDF: 1.7
+Figuras incluidas: 2 capturas de la interfaz local
+Secciones principales: 27
+Entradas bibliograficas: 14
+Referencias sin entrada bibliografica: 0
+Pruebas automatizadas del repositorio: 92 aprobadas, 0 fallidas
+Resultado de compilacion: correcta
+Warnings de compilacion: 0
+SHA-256 de main_editable.pdf: 98909F98884C1ADEB04541E9D5BB88A8902DA5CC70704D9BEF2A6D3474E4720C
+

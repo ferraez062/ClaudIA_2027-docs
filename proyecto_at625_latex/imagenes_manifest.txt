@@ -1,0 +1,7 @@
+Figura   Archivo                        Dimensiones       Uso
+1        assets/claudia_web_ui.png       1440 x 1000       Interfaz local en espera
+2        assets/claudia_web_help.png     1440 x 1049       Respuesta del comando ayuda
+
+Las dos capturas se generaron el 9 de noviembre de 2026 desde la interfaz local
+de ClaudIA ejecutada en http://127.0.0.1:3000. No contienen datos personales.
+

@@ -1,0 +1,968 @@
+\documentclass[letterpaper,11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish,es-noshorthands]{babel}
+\usepackage[scaled=0.96]{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage[letterpaper,left=1in,right=1in,top=1.515in,bottom=0.66in,headheight=59pt,headsep=12pt]{geometry}
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{arrows.meta,positioning,shapes.geometric,fit,calc,backgrounds}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{lastpage}
+\usepackage{setspace}
+\usepackage[hidelinks]{hyperref}
+\usepackage{xurl}
+
+\definecolor{navy}{HTML}{17324D}
+\definecolor{teal}{HTML}{23878A}
+\definecolor{gold}{HTML}{D9A441}
+\definecolor{coral}{HTML}{CB6651}
+\definecolor{mist}{HTML}{E9EEF2}
+\definecolor{linegray}{HTML}{B8C1CA}
+\definecolor{ink}{HTML}{24303A}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=navy,
+  urlcolor=teal,
+  citecolor=navy
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\fancyhead[C]{%
+  \fontsize{11}{17.5}\selectfont
+  \begin{tabular}{@{}c@{}}
+    \makebox[\textwidth][r]{\textbf{26-AT625}}\\[-1pt]
+    \textbf{ClaudIA: Sistema Inteligente de Acompañamiento Didáctico}\\
+    \textbf{para Grupos DGETI}
+  \end{tabular}%
+}
+
+\titleformat{\section}
+  {\normalfont\bfseries\fontsize{11}{19}\selectfont}
+  {}{0pt}{}
+\titleformat{\subsection}
+  {\normalfont\bfseries\fontsize{11}{19}\selectfont}
+  {}{0pt}{}
+\titlespacing*{\section}{0pt}{0pt}{8pt}
+\titlespacing*{\subsection}{0pt}{8pt}{4pt}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{8pt}
+\setlength{\emergencystretch}{2em}
+\setlist[itemize]{leftmargin=1.35em,label=\textbullet,itemsep=0pt,topsep=0pt,parsep=0pt,partopsep=0pt}
+\setlist[enumerate]{leftmargin=1.5em,itemsep=0pt,topsep=0pt,parsep=0pt,partopsep=0pt}
+\captionsetup{font=small,labelfont=bf,labelsep=period,justification=raggedright,singlelinecheck=false}
+\renewcommand{\arraystretch}{1.18}
+
+\newcommand{\shortsection}[1]{\par\noindent\textbf{\fontsize{11}{19}\selectfont #1}\par}
+
+\begin{document}
+\fontsize{11}{19}\selectfont
+
+% ---------------------------------------------------------------------------
+% INTRODUCCIÓN
+% ---------------------------------------------------------------------------
+\section{Introducción}
+
+El acompañamiento didáctico reúne acciones que ayudan al estudiante a comprender una tarea, organizar su trabajo, reconocer un error y decidir el siguiente paso. En grupos numerosos, el docente no siempre puede ofrecer esa mediación con la frecuencia que cada estudiante requiere. La atención individual se concentra en quienes preguntan, mientras otros permanecen en silencio y acumulan dificultades.
+
+ClaudIA busca ampliar esa capacidad de acompañamiento dentro del aula. La estación usa voz como entrada principal y salida auditiva. El estudiante no necesita instalar una aplicación ni abrir una conversación en otro dispositivo. Puede hablar con la estación y recibir una explicación, un ejemplo o una pregunta de seguimiento. El docente conserva la autoridad pedagógica y recibe solo información agregada para intervenir a tiempo.
+
+La respuesta final no se entrega como un producto terminado. Se construye mediante preguntas, ejemplos y nuevos intentos del estudiante.
+
+El carácter físico del prototipo es una decisión educativa y no un fin tecnológico. Una estación visible en el aula puede favorecer la familiaridad, la accesibilidad y la interacción compartida. Al mismo tiempo, exige reglas claras para el uso de micrófono y cámara, señalización de actividad y límites de percepción.
+
+La propuesta se apoya en el marco curricular vigente y en la línea de desarrollo tecnológico del PROIDET. La Secretaría de Educación Pública establece que el MCCEMS debe responder a contextos locales y regionales y promover una formación humanista e integral \cite{sep2025mccms}. La convocatoria de DGETI incorpora esa orientación en las líneas de investigación del programa \cite{dgeti2026}.
+
+\clearpage
+
+% ---------------------------------------------------------------------------
+% PÁGINA 5 - PROBLEMA
+% ---------------------------------------------------------------------------
+\section{Planteamiento del problema}
+
+En el grupo de referencia, las dificultades académicas se expresan como problemas de organización, comprensión y administración del tiempo. No son necesidades aisladas. Cuando un estudiante no comprende una consigna, puede postergar la tarea; cuando olvida una fecha, acumula pendientes; cuando el docente no recibe señales a tiempo, la intervención ocurre cuando el rezago ya se consolidó.
+
+El docente enfrenta una limitación de atención. Puede explicar para el grupo, pero no observar simultáneamente los intentos individuales, corregir cada error en el pizarrón y registrar qué concepto provoca más dudas. Las plataformas tradicionales suelen requerir que el alumno abra una sesión, busque una tarea y escriba una duda. ClaudIA reduce esa fricción al permitir una pregunta oral y una conversación guiada.
+
+El problema central es la ausencia de un auxiliar pedagógico permanente, accesible y multimodal que ayude a convertir el trabajo cotidiano del aula en oportunidades de explicación, práctica y retroalimentación, sin convertirse en un sistema de vigilancia ni en un sustituto del docente.
+
+El contexto mexicano exige una estrategia prudente. INEGI e IFT reportan que en 2025, 86.1\% de la población de seis años o más usó internet y que 97.0\% de las personas usuarias de telefonía móvil contaba con un teléfono inteligente \cite{inegi2026}. La cobertura es amplia, pero persisten brechas urbano-rurales y desigualdades de acceso. ClaudIA debe tolerar conectividad limitada y no depender exclusivamente de servicios remotos.
+
+Licona advierte que la IA puede ampliar el acceso y la personalización educativa, pero también profundizar exclusiones si no se atienden la alfabetización, la infraestructura y la formación de los actores escolares \cite{licona2024}. Esa advertencia obliga a diseñar ClaudIA como una herramienta complementaria y verificable, no como una solución automática a la desigualdad educativa.
+
+\clearpage
+
+% ---------------------------------------------------------------------------
+% PÁGINA 6 - JUSTIFICACIÓN
+% ---------------------------------------------------------------------------
+\section{Justificación}
+
+La relevancia de ClaudIA está en atender una necesidad observable con una interacción que se aproxima a la ayuda que un docente puede brindar en el momento. El estudiante no recibe únicamente una respuesta: recibe una secuencia. El sistema puede pedir que explique su razonamiento, ofrecer una pista, comprobar la respuesta y proponer otra variante. Esta lógica es más cercana a la tutoría que a un buscador.
+
+La meta-análisis de Ma, Adesope, Nesbit y Liu encontró un tamaño de efecto de $g=0.57$ a favor de sistemas de tutoría inteligente frente a instrucción computarizada sin tutoría, y de $g=0.42$ frente a la enseñanza en grupos grandes. También reportó resultados positivos en todos los niveles educativos analizados \cite{ma2014}. La evidencia respalda el potencial, pero no justifica afirmar que cualquier chatbot mejorará el aprendizaje. La calidad del diseño pedagógico sigue siendo determinante.
+
+Gubareva y Lopes describen a los asistentes virtuales como herramientas capaces de ayudar a organizar el estudio, gestionar el tiempo y sostener la motivación, especialmente cuando el apoyo individual resulta costoso \cite{gubareva2020}. ClaudIA lleva esa función a una estación compartida en el aula y la concentra en la conversación oral.
+
+La UNESCO sostiene que la IA generativa no debe confundirse con conocimiento confiable. Sus respuestas pueden sonar plausibles y ser incorrectas; la supervisión humana, la verificación y la transparencia son condiciones de uso \cite{unesco2024guide}. Por ello, ClaudIA no dará por válida una explicación sólo porque fue producida por el modelo.
+
+\clearpage
+
+% ---------------------------------------------------------------------------
+% PÁGINA 7 - PROPÓSITO Y OBJETIVOS
+% ---------------------------------------------------------------------------
+\section{Propósito, hipótesis y objetivos}
+
+\subsection*{Hipótesis de trabajo}
+La mediación oral y dialógica de ClaudIA permitirá que estudiantes de un grupo DGETI obtengan apoyo oportuno para organizar actividades y comprender temas, y que el docente identifique con mayor rapidez los contenidos que requieren nueva explicación. La hipótesis se evaluará con un piloto dentro del plantel y no se asume como resultado ya demostrado.
+
+\subsection*{Objetivo general}
+Desarrollar una estación de acompañamiento didáctico basada en la arquitectura de Jarvis que integre escucha, respuesta hablada, percepción de presencia y entorno, y seguimiento pedagógico para apoyar el trabajo de estudiantes y docentes en grupos de Educación Media Superior.
+
+\subsection*{Objetivos específicos}
+\begin{enumerate}
+  \item Identificar las necesidades académicas y prácticas de uso de IA de un grupo del CETis 20.
+  \item Adaptar el núcleo modular de Jarvis a una identidad, configuración y experiencia ClaudIA.
+  \item Integrar entrada de voz, salida por bocina y detección de presencia o entorno.
+  \item Diseñar flujos de explicación, pregunta guiada, práctica y retroalimentación formativa.
+  \item Mantener contexto de la clase y progreso de práctica sin conservar datos innecesarios.
+  \item Proporcionar al docente un resumen agregado de dudas y temas que requieren apoyo.
+  \item Evaluar claridad, utilidad, accesibilidad, estabilidad y aceptación durante un piloto escolar.
+\end{enumerate}
+
+\subsection*{Límites del proyecto}
+ClaudIA no emite diagnósticos médicos o psicológicos, no califica automáticamente una asignatura y no sustituye la asesoría docente. La cámara se destina a detectar presencia o contexto general del entorno; no identifica estudiantes, no reconoce rostros y no procesa cuadernos para resolver ejercicios. El dispositivo no aprende de conversaciones sin una regla explícita y auditable.
+
+\clearpage
+
+% ---------------------------------------------------------------------------
+% PÁGINA 8 - METODOLOGÍA
+% ---------------------------------------------------------------------------
+\section{Metodología}
+
+El proyecto combina investigación aplicada, diseño de prototipo y evaluación formativa. La primera fase fue exploratoria y descriptiva. La base diagnóstica reúne 122 registros de estudiantes del CETis 20 para identificar dificultades académicas y prácticas declaradas de uso y verificación de IA.
+
+\subsection*{Diseño muestral}
+La muestra fue de conveniencia y correspondió a estudiantes del plantel participante. El análisis se realizó con 122 registros únicos. Los porcentajes de los reactivos seleccionados se calcularon sobre el total de respuestas. La interpretación es descriptiva y se utiliza para formular requisitos de diseño, no para afirmar efectos causales.
+
+\subsection*{Procesamiento estadístico}
+Se obtuvieron distribuciones de frecuencia, porcentajes y tablas de contingencia por turno. La interpretación es descriptiva. No se calcularon pruebas inferenciales porque la muestra no es probabilística y no existe un marco de toda la población del plantel. Los resultados se utilizan para formular requisitos de diseño y una línea base, no para afirmar efectos causales.
+
+\subsection*{Diseño tecnológico}
+La construcción parte de la base Jarvis, organizada en interfaces, núcleo, comandos, memoria, educación, documentos, voz y visión. Se conserva la separación de responsabilidades y se añaden adaptadores para la estación física. La validación actual incluye pruebas automatizadas; la validación educativa corresponde al siguiente periodo.
+
+\clearpage
+
+% ---------------------------------------------------------------------------
+% PÁGINA 9 - PERFIL DE LA MUESTRA
+% ---------------------------------------------------------------------------
+\section{Perfil de la muestra}
+
+La muestra estuvo compuesta por 122 estudiantes del CETis 20 de Ciudad del Carmen. El turno matutino aportó 97 respuestas y el vespertino 25. La mayoría cursaba tercero o quinto semestre. La especialidad de Laboratorista Clínico concentró 84 participantes, por lo que las comparaciones entre especialidades deben interpretarse con cautela.
+
+\begin{table}[H]
+\centering
+\caption{Distribución de la muestra por turno y semestre}
+\begin{tabular}{lrr}
+\toprule
+\textbf{Categoría} & \textbf{Respuestas} & \textbf{Porcentaje} \\
+\midrule
+Turno matutino & 97 & 79.5\% \\
+Turno vespertino & 25 & 20.5\% \\
+Primer semestre & 24 & 19.7\% \\
+Tercer semestre & 42 & 34.4\% \\
+Quinto semestre & 56 & 45.9\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\resizebox{0.98\textwidth}{!}{%
+\begin{tikzpicture}
+\begin{axis}[
+  width=0.92\textwidth,
+  height=5.8cm,
+  xbar,
+  xmin=0,
+  xmax=95,
+  ytick=data,
+  symbolic y coords={Inteligencia Artificial,Contabilidad,Mantenimiento Automotriz,Semiconductores y Microelectrónica,Laboratorista Clínico},
+  y dir=reverse,
+  title={Composición por especialidad},
+  title style={align=left,font=\bfseries\color{navy}},
+  axis y line*=left,
+  axis x line*=bottom,
+  tick label style={font=\small},
+  axis line style={draw=linegray},
+  xmajorgrids,
+  grid style={draw=mist},
+  nodes near coords,
+  nodes near coords style={font=\scriptsize,color=navy},
+  bar width=11pt,
+  fill=teal,
+  draw=none
+]
+\addplot coordinates {
+  (1,Inteligencia Artificial)
+  (5,Contabilidad)
+  (12,Mantenimiento Automotriz)
+  (20,Semiconductores y Microelectrónica)
+  (84,Laboratorista Clínico)
+};
+\end{axis}
+\end{tikzpicture}
+}
+\caption{Distribución de respuestas por especialidad, $n=122$.}
+\end{figure}
+
+La concentración no invalida el diagnóstico, pero limita conclusiones por área. Para el piloto será necesario equilibrar especialidades o reportar cada resultado con su denominador.
+
+\clearpage
+
+% ---------------------------------------------------------------------------
+% PÁGINA 10 - NECESIDADES
+% ---------------------------------------------------------------------------
+\section{Necesidades académicas}
+
+La dificultad principal declarada fue organizarse o recordar fechas, con 46 respuestas. Le siguió entender el tema, con 45. La falta de tiempo ocupó el tercer lugar con 30. Sólo una persona señaló como dificultad principal el acceso a internet o dispositivo. La suma de las dos primeras categorías alcanzó 74.6\%.
+
+\begin{figure}[H]
+\centering
+\resizebox{0.98\textwidth}{!}{%
+\begin{tikzpicture}
+\begin{axis}[
+  width=0.9\textwidth,
+  height=6.4cm,
+  xbar,
+  xmin=0,
+  xmax=58,
+  symbolic y coords={Internet o dispositivo,Falta de tiempo,Entender el tema,Organizarme o recordar fechas},
+  y dir=reverse,
+  title={Dificultad académica principal},
+  title style={align=left,font=\bfseries\color{navy}},
+  xlabel={Número de estudiantes},
+  axis x line*=bottom,
+  axis y line*=left,
+  tick label style={font=\small},
+  axis line style={draw=linegray},
+  xmajorgrids,
+  grid style={draw=mist},
+  nodes near coords,
+  nodes near coords style={font=\scriptsize,color=navy},
+  bar width=13pt,
+  fill=coral,
+  draw=none
+]
+\addplot coordinates {
+  (1,Internet o dispositivo)
+  (30,Falta de tiempo)
+  (45,Entender el tema)
+  (46,Organizarme o recordar fechas)
+};
+\end{axis}
+\end{tikzpicture}
+}
+\caption{Respuesta única sobre la principal dificultad, $n=122$.}
+\end{figure}
+
+La lectura educativa es directa. ClaudIA debe ayudar a convertir una meta amplia en una secuencia corta de acciones, recordar entregas y detectar el punto exacto en el que la comprensión se interrumpe. No debe limitarse a responder preguntas. También debe enseñar a planear, revisar y corregir.
+
+\clearpage
+
+% ---------------------------------------------------------------------------
+% RELACIÓN DE LOS ESTUDIANTES CON LA IA
+% ---------------------------------------------------------------------------
+\section{Relación de los estudiantes con la IA}
+
+La mayoría de los estudiantes ya interactúa con inteligencia artificial. Un 59.8\% declaró usarla si le parece correcta, 32.8\% afirmó verificar con fuentes o con el docente y 7.4\% indicó que no la usa. La familiaridad es alta, pero la verificación sistemática todavía es limitada.
+
+\begin{figure}[H]
+\centering
+\resizebox{0.98\textwidth}{!}{%
+\begin{tikzpicture}
+\begin{axis}[
+  width=0.93\textwidth,
+  height=6.2cm,
+  xbar,
+  xmin=0,
+  xmax=88,
+  symbolic y coords={No uso IA,Verifico con fuentes o docente,La uso si parece correcta},
+  y dir=reverse,
+  title={Forma de uso declarada de la IA},
+  title style={align=left,font=\bfseries\color{navy}},
+  xlabel={Número de estudiantes},
+  axis x line*=bottom,
+  axis y line*=left,
+  tick label style={font=\small},
+  axis line style={draw=linegray},
+  xmajorgrids,
+  grid style={draw=mist},
+  nodes near coords,
+  nodes near coords style={font=\scriptsize,color=navy},
+  bar width=16pt,
+  fill=gold,
+  draw=none
+]
+\addplot coordinates {
+  (9,No uso IA)
+  (40,Verifico con fuentes o docente)
+  (73,La uso si parece correcta)
+};
+\end{axis}
+\end{tikzpicture}
+}
+\caption{Uso y verificación declarados de IA, $n=122$.}
+\end{figure}
+
+La UNESCO propone que la competencia en IA incluya pensamiento centrado en las personas, ética, fundamentos técnicos y diseño de sistemas \cite{miao2024}. De acuerdo con esa orientación, ClaudIA no entrega la solución como producto de la interacción. Debe pedir un intento, ofrecer un ejemplo, formular una pregunta y conducir al estudiante hacia el paso siguiente.
+
+La UNESCO también advierte que la fluidez de un modelo no garantiza exactitud y que sus errores pueden pasar inadvertidos \cite{unesco2024guide}. Por ello, ClaudIA debe mostrar el razonamiento paso a paso, pedir justificación y consultar al docente cuando no tenga evidencia suficiente.
+
+\shortsection{Lo que muestra y lo que no}
+La distribución respalda la familiaridad del grupo con la IA y la necesidad de enseñar verificación. No demuestra por sí sola que el alumnado acepte hablar frente a una estación ni que la cámara sea un recurso bien recibido. Esa aceptación debe medirse en la siguiente etapa.
+
+\clearpage
+
+% ---------------------------------------------------------------------------
+% LÍMITES DE LA EVIDENCIA
+% ---------------------------------------------------------------------------
+\section{Límites de la evidencia y validación necesaria}
+
+La encuesta permite justificar la necesidad de acompañamiento y la familiaridad con IA. No permite demostrar mejoras de aprendizaje, aceptación de la voz ni tolerancia a una cámara de presencia. El informe no debe convertir esas preguntas abiertas en conclusiones. La estación tampoco recibe imágenes de cuadernos para resolver ejercicios.
+
+\subsection*{Aspectos que necesitan medición}
+\begin{itemize}
+  \item Comodidad del estudiante al hablar frente a la estación.
+  \item Claridad de las respuestas en español y con ruido ambiental.
+  \item Utilidad de los ejemplos, pistas y preguntas de comprobación.
+  \item Aceptación de la detección de presencia mediante cámara.
+  \item Comprensión de cuándo la cámara está activa.
+  \item Capacidad del docente para usar los resúmenes sin sentirse vigilado.
+\end{itemize}
+
+\begin{table}[H]
+\centering
+\caption{Preguntas específicas para la siguiente validación}
+\small
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{1.28in}>{\raggedright\arraybackslash}X@{}}
+\toprule
+\textbf{Dimensión} & \textbf{Pregunta propuesta} \\
+\midrule
+Interacción oral & ¿Qué tan cómodo te resultaría preguntar en voz alta a ClaudIA dentro del aula? \\
+Pedagogía & Cuando no comprendes un tema, ¿prefieres un ejemplo, una pista, una pregunta guía o una explicación más breve? \\
+Verificación & ¿Qué haría que confiaras o desconfiaras de una explicación dada por ClaudIA? \\
+Presencia & ¿Cómo te sientes al saber que la cámara sólo detecta que hay personas frente a la estación y no identifica rostros? \\
+Privacidad & ¿Qué información de tu participación no debería guardar el sistema? \\
+Docente & ¿Qué resumen sería útil para decidir una nueva explicación sin observar conversaciones completas? \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection*{Diseño de la interacción}
+El diálogo se organizará como una ayuda gradual:
+\begin{enumerate}
+  \item ClaudIA escucha la duda y confirma lo que entendió.
+  \item Pide al estudiante que explique qué sabe o qué intentó.
+  \item Ofrece un ejemplo análogo, no el resultado del ejercicio.
+  \item Formula una pregunta que haga visible el siguiente paso.
+  \item Solicita un nuevo intento o, si persiste el bloqueo, deriva al docente.
+\end{enumerate}
+
+\clearpage
+
+% ---------------------------------------------------------------------------
+% PÁGINA 13 - REQUISITOS DE DISEÑO
+% ---------------------------------------------------------------------------
+\section{Requisitos de diseño derivados de la evidencia}
+
+Los datos no justifican construir otro chatbot genérico. Justifican una estación que ayude a estructurar el trabajo y a acompañar la comprensión mediante conversación. La tabla siguiente traduce cada hallazgo en una decisión de producto.
+
+\begin{table}[H]
+\centering
+\caption{Relación entre diagnóstico y diseño de ClaudIA}
+\small
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{1.42in}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{1.55in}@{}}
+\toprule
+\textbf{Evidencia} & \textbf{Necesidad} & \textbf{Función} \\
+\midrule
+37.7\% dificultad para organizarse & Dividir metas y recordar fechas & Plan de sesión y recordatorio contextual \\
+36.9\% dificultad para entender & Explicación gradual con ejemplos & Tutor oral paso a paso \\
+24.6\% falta de tiempo & Interacciones breves y recuperables & Micropíldoras de 3 a 7 minutos \\
+92.6\% usa IA & Aprovechar familiaridad & Lenguaje natural y práctica guiada \\
+32.8\% verifica con fuentes & Evitar dependencia & Comprobación y derivación al docente \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\shortsection{Decisión central}
+El micrófono captura la duda y la cámara detecta presencia o contexto; ninguna de las dos funciones resuelve el ejercicio por el estudiante. ClaudIA debe responder con una pregunta, un ejemplo, una explicación breve o una pista; la respuesta final no forma parte de su función pedagógica.
+
+\clearpage
+
+% ---------------------------------------------------------------------------
+% PÁGINA 14 - MARCO PEDAGÓGICO
+% ---------------------------------------------------------------------------
+\section{Marco pedagógico}
+
+\subsection{Aprendizaje autorregulado}
+La EEF describe al estudiante autorregulado como alguien que conoce sus fortalezas y debilidades y puede planear, monitorear y evaluar su aprendizaje. En estudiantes novatos, esas estrategias deben hacerse explícitas \cite{eef2018}. ClaudIA puede convertir cada interacción en una pequeña estructura de autorregulación:
+\begin{enumerate}
+  \item \textbf{Planear:} ``¿Qué tienes que resolver y qué sabes ya?''
+  \item \textbf{Monitorear:} ``¿En qué paso apareció la duda?''
+  \item \textbf{Evaluar:} ``¿Cómo sabes que tu respuesta es razonable?''
+\end{enumerate}
+
+\subsection{Retroalimentación formativa}
+La EEF recomienda que la retroalimentación se base en una instrucción de calidad, esté oportunamente ubicada y se dirija hacia la tarea, el contenido y las estrategias de autorregulación. La retroalimentación vaga o centrada en rasgos personales suele ser menos eficaz \cite{eef2021}. Por eso, ClaudIA no dirá simplemente ``eres bueno en matemáticas''. Dirá qué parte del procedimiento está bien, qué paso debe revisar y qué pregunta puede probar.
+
+\subsection{Tutoría con pistas}
+La estación no debe resolver el ejercicio completo. Su flujo será: comprender el objetivo, pedir un intento, identificar el error, ofrecer una pista, permitir un nuevo intento y explicar el razonamiento mediante un caso parecido. No entrega la solución final. Esta estructura convierte la ayuda en práctica guiada.
+
+\subsection{Enseñanza situada}
+El apoyo toma ejemplos del grupo y del material que el docente está trabajando. La base educativa de Jarvis ya contiene lecciones, objetivos, pasos y ejercicios breves; ClaudIA ampliará ese catálogo con contenidos de las asignaturas y especialidades del plantel.
+
+\clearpage
+
+% ---------------------------------------------------------------------------
+% PÁGINA 15 - VOZ, VISIÓN Y ACCESIBILIDAD
+% ---------------------------------------------------------------------------
+\section{Interfaz oral, percepción y accesibilidad}
+
+\subsection{Entrada por voz}
+La voz reduce la fricción de escribir en un dispositivo compartido. El estudiante puede formular una duda mientras tiene el cuaderno en las manos. Sin embargo, el reconocimiento puede fallar por ruido de aula, acento o vocabulario técnico. ClaudIA debe confirmar verbalmente lo que entendió, pedir repetición cuando sea necesario y permitir una corrección oral.
+
+\subsection{Percepción por cámara}
+La cámara se utilizará para detectar presencia de personas o características generales del entorno. Puede apoyar la activación o pausa de la estación y evitar que responda cuando no hay usuarios. No leerá cuadernos, no resolverá ejercicios a partir de una imagen, no identificará estudiantes y no realizará reconocimiento facial.
+
+\subsection{Diseño universal}
+CAST propone diversificar la representación, la acción y la expresión, y el compromiso \cite{cast2024}. ClaudIA aplicará ese principio con explicaciones en distintos niveles, ejemplos, analogías, ritmo ajustable y una opción para repetir. La voz será el canal principal de participación; la cámara no sustituye la expresión del estudiante.
+
+\begin{table}[H]
+\centering
+\caption{Principios de accesibilidad aplicados al dispositivo}
+\begin{tabularx}{\textwidth}{@{}lX@{}}
+\toprule
+\textbf{Principio} & \textbf{Aplicación concreta} \\
+\midrule
+Múltiples formas de representación & Ejemplos, analogías, resúmenes breves y repetición oral \\
+Múltiples formas de acción & Formular una duda, explicar con palabras propias o pedir una pista \\
+Múltiples formas de participación & Práctica corta, retos por niveles y pista antes de respuesta \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\clearpage
+
+% ---------------------------------------------------------------------------
+% PÁGINA 16 - ÉTICA Y PRIVACIDAD
+% ---------------------------------------------------------------------------
+\section{Ética, privacidad y control}
+
+La cámara y el micrófono modifican el nivel de riesgo frente a un chatbot de texto. NIST propone un ciclo de gobernar, mapear, medir y gestionar los riesgos de IA \cite{nist2023}; su perfil de IA generativa añade riesgos de confiabilidad, privacidad, sesgo e información incorrecta \cite{nist2024}. Una revisión sobre cámaras en escuelas advierte que la vigilancia continua puede erosionar autonomía y privacidad cuando no existen límites explícitos \cite{zulfiqar2026}.
+
+ClaudIA responderá con siete controles:
+\begin{enumerate}
+  \item \textbf{Detección deliberada:} la cámara sólo detecta presencia o contexto y se desactiva cuando no hay una sesión autorizada.
+  \item \textbf{Sin reconocimiento facial:} el sistema no identifica estudiantes ni infiere emociones.
+  \item \textbf{Indicador físico:} luz y obturador muestran cuándo la cámara está activa.
+  \item \textbf{Minimización:} se conserva la transcripción educativa necesaria, no el audio ni el video completos.
+  \item \textbf{Retención limitada:} los datos de práctica se eliminan o anonimizan al terminar el periodo definido.
+  \item \textbf{Acceso por roles:} estudiantes, docentes y administradores tienen permisos distintos.
+  \item \textbf{Supervisión humana:} una alerta sugiere revisión; no determina sanciones ni calificaciones.
+\end{enumerate}
+
+\shortsection{Uso responsable de IA}
+La UNESCO promueve un enfoque centrado en las personas, con protección de la privacidad y participación humana \cite{unesco2024guide}. ClaudIA mostrará cuándo una respuesta proviene de un modelo, permitirá corregir una transcripción, rechazará contenidos fuera del contexto escolar y pedirá ayuda docente cuando no tenga evidencia suficiente.
+
+\clearpage
+
+% ---------------------------------------------------------------------------
+% PÁGINA 17 - PRESENTACIÓN DE CLAUDIA
+% ---------------------------------------------------------------------------
+\section{Presentación de ClaudIA}
+
+ClaudIA será una estación de acompañamiento con cuatro componentes visibles: una carcasa estable, un micrófono, una bocina y una cámara con protector. Un procesador local ejecuta el núcleo y coordina las integraciones. La estación puede operar conectada a la red del plantel y usar servicios de IA cuando estén disponibles.
+
+\begin{center}
+\begin{tikzpicture}[
+  node distance=8mm,
+  box/.style={draw=linegray,rounded corners=4pt,fill=white,minimum height=0.8cm,align=center,font=\small},
+  accent/.style={draw=teal,rounded corners=4pt,fill=teal!8,minimum height=0.9cm,align=center,font=\small\bfseries},
+  arrow/.style={-{Stealth[length=2.4mm]},draw=linegray,line width=0.7pt}
+]
+\node[accent,text width=2.1cm] (student) {Estudiante};
+\node[box,right=of student,text width=2.35cm] (mic) {Micrófono\\voz};
+\node[box,right=of mic,text width=2.4cm] (core) {Núcleo ClaudIA\\intención y contexto};
+\node[box,right=of core,text width=2.45cm] (tutor) {Tutor y lógica\\pedagógica};
+\node[box,right=of tutor,text width=2.3cm] (speaker) {Bocina\\respuesta oral};
+\draw[arrow] (student) -- (mic);
+\draw[arrow] (mic) -- (core);
+\draw[arrow] (core) -- (tutor);
+\draw[arrow] (tutor) -- (speaker);
+\draw[arrow,bend left=18] (speaker) to node[below,font=\scriptsize,text=linegray]{retroalimentación} (student);
+
+\node[box,below=of core,text width=2.35cm] (camera) {Cámara\\presencia};
+\node[box,below=of tutor,text width=2.35cm] (vision) {Percepción\\personas y entorno};
+\node[box,below=of speaker,text width=2.25cm] (teacher) {Docente\\panel resumido};
+\draw[arrow] (camera) -- node[left,font=\scriptsize]{presencia} (core);
+\draw[arrow] (camera) -- (vision);
+\draw[arrow] (vision) -- (core);
+\draw[arrow] (tutor) -- node[right,font=\scriptsize]{alertas} (teacher);
+\end{tikzpicture}
+\end{center}
+
+\begin{table}[H]
+\centering
+\caption{Casos de uso principales}
+\begin{tabularx}{\textwidth}{@{}>{\bfseries}p{1.55in}X@{}}
+\toprule
+Acción & Resultado pedagógico \\
+\midrule
+``Explícame este paso'' & Explicación oral breve, ejemplo y comprobación \\
+``Dame una pista'' & Pregunta guía y avance sin revelar la solución \\
+``¿Cuál es la respuesta?'' & Pide un intento o reformula el razonamiento; no expone el resultado \\
+``Hazme una pregunta'' & Práctica activa con retroalimentación \\
+``¿Qué vimos hoy?'' & Recuperación del contexto de la sesión \\
+``No entendí'' & Reformulación con otro ejemplo o derivación al docente \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\clearpage
+
+% ---------------------------------------------------------------------------
+% PÁGINA 18 - ARQUITECTURA
+% ---------------------------------------------------------------------------
+\section{Arquitectura del sistema}
+
+La arquitectura conserva la separación del código base: las interfaces no llaman directamente al modelo; los comandos no contienen reglas pedagógicas; la memoria temporal no se mezcla con el progreso educativo. Esta división permite sustituir micrófono, cámara o proveedor de IA sin reescribir el núcleo.
+
+\begin{center}
+\begin{tikzpicture}[
+  node distance=7mm and 8mm,
+  layer/.style={draw=linegray,rounded corners=5pt,minimum width=3.4cm,minimum height=0.9cm,align=center,font=\small},
+  hw/.style={layer,fill=gold!15},
+  iface/.style={layer,fill=teal!12},
+  core/.style={layer,fill=navy!10},
+  data/.style={layer,fill=coral!10}
+]
+\node[hw] (hardware) {Hardware\\micrófono, cámara, bocina};
+\node[iface,below=of hardware] (adapter) {Adaptadores\\audio y presencia};
+\node[core,below=of adapter] (eventbus) {EventBus + JarvisCore\\estado y ruteo};
+\node[core,below=of eventbus] (intent) {Comandos / intención\\sesiones y reglas};
+\node[core,below=of intent] (edu) {Tutor + educación\\lecciones y ejercicios};
+\node[data,right=of eventbus] (memory) {Memoria\\sesión y progreso};
+\node[data,right=of edu] (ai) {Servicio IA\\respuesta contextual};
+\node[data,right=of intent] (logs) {Registro\\evidencia mínima};
+\draw[-{Stealth},draw=linegray] (hardware)--(adapter);
+\draw[-{Stealth},draw=linegray] (adapter)--(eventbus);
+\draw[-{Stealth},draw=linegray] (eventbus)--(intent);
+\draw[-{Stealth},draw=linegray] (intent)--(edu);
+\draw[<->,draw=linegray] (eventbus)--(memory);
+\draw[<->,draw=linegray] (edu)--(ai);
+\draw[-{Stealth},draw=linegray] (intent)--(logs);
+\end{tikzpicture}
+\end{center}
+
+\subsection{Flujo de una consulta}
+El micrófono produce texto; el adaptador normaliza la entrada y emite un evento. El núcleo identifica si se trata de un comando, una duda o una solicitud de práctica. El módulo educativo recupera lección, contexto y progreso. Si la consulta requiere explicación adaptativa, se consulta el servicio de IA con límites de seguridad. La respuesta se convierte en audio y, cuando corresponde, se resume para el docente.
+
+La cámara sigue un flujo independiente. Detecta si hay una persona frente a la estación y obtiene una señal general del entorno para activar, pausar o ajustar la interacción. No interpreta el contenido de un cuaderno ni convierte una imagen en una pregunta académica. El video no se conserva.
+
+\clearpage
+
+% ---------------------------------------------------------------------------
+% PÁGINA 19 - EXPERIENCIA DEL ESTUDIANTE
+% ---------------------------------------------------------------------------
+\section{Experiencia del estudiante}
+
+La interacción debe sentirse como una consulta de aula, no como una prueba de vigilancia. El estudiante se acerca, activa la sesión con una frase o botón, pregunta y recibe una respuesta. El dispositivo debe indicar de forma perceptible cuándo escucha y cuándo observa.
+
+\subsection{Recorrido de uso}
+\begin{enumerate}
+  \item \textbf{Activación:} ``ClaudIA, necesito ayuda con esta ecuación''.
+  \item \textbf{Confirmación:} la estación repite oralmente lo que entendió.
+  \item \textbf{Contexto:} pregunta qué intentó y qué parte no comprende.
+  \item \textbf{Diagnóstico:} identifica el paso donde se produjo el bloqueo.
+  \item \textbf{Pista:} ofrece una pregunta o regla, sin resolver el ejercicio.
+  \item \textbf{Intento:} el estudiante explica o resuelve de nuevo.
+  \item \textbf{Cierre:} pide una explicación final y registra sólo el tema y el avance.
+\end{enumerate}
+
+\subsection{Ejemplo de diálogo}
+\begin{quote}
+\small
+\textbf{Estudiante:} No entiendo por qué la derivada de $x^2$ es $2x$.\\
+\textbf{ClaudIA:} Vamos a verlo con una pregunta. Si $y=x^2$, ¿qué significa el exponente 2?\\
+\textbf{Estudiante:} Que se multiplica $x$ por $x$.\\
+\textbf{ClaudIA:} Correcto. Ahora piensa qué ocurre cuando cambia el valor de $x$. ¿Qué relación observas entre el exponente original y el nuevo factor?\\
+\textbf{Estudiante:} Queda $x^1$ y adelante un 2.\\
+\textbf{ClaudIA:} Ese paso es consistente. Antes de continuar, explica con tus palabras por qué aparece ese factor y prueba con otro exponente.
+\end{quote}
+
+\subsection{Reglas de interacción}
+No se aceptan comandos para espiar, identificar a otra persona o grabar sin señal visible. La cámara sólo confirma presencia o contexto y puede apagarse físicamente. Si la confianza de reconocimiento de voz es baja, ClaudIA pide repetición antes de actuar. El estudiante puede borrar el contexto de la sesión al finalizar.
+
+\clearpage
+
+% ---------------------------------------------------------------------------
+% PÁGINA 20 - DOCENTE
+% ---------------------------------------------------------------------------
+\section{Apoyo al docente}
+
+El docente no necesita revisar cada conversación. ClaudIA presenta un resumen de patrones: temas consultados, tipos de error, estudiantes que requirieron apoyo adicional y actividades que quedaron incompletas. La información se agrega por grupo y se muestra con un identificador seudónimo. La identidad se vincula únicamente cuando existe una necesidad pedagógica autorizada.
+
+\begin{table}[H]
+\centering
+\caption{Vista propuesta para el panel docente}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{1.36in}>{\raggedright\arraybackslash}X>{\centering\arraybackslash}p{0.9in}@{}}
+\toprule
+\textbf{Indicador} & \textbf{Qué muestra} & \textbf{Frecuencia} \\
+\midrule
+Temas consultados & Conceptos que generaron más solicitudes & Diaria \\
+Errores frecuentes & Pasos o procedimientos con mayor dificultad & Semanal \\
+Prácticas completadas & Ejercicios finalizados por el grupo & Diaria \\
+Necesidad de nueva explicación & Contenidos con pistas repetidas o abandono & Semanal \\
+Sesiones asistidas & Uso de ClaudIA por sesión o grupo & Diaria \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+La alerta pedagógica no es una etiqueta psicológica ni una predicción de reprobación. Es una señal para revisar el trabajo, formular una pregunta al grupo o proponer una actividad adicional. El docente decide si interviene, cómo y con qué evidencia.
+
+\shortsection{Controles para el aula}
+\begin{itemize}
+  \item Inicio de sesión del docente con permisos de revisión.
+  \item Modo clase para proyectar una pregunta común.
+  \item Botón de pausa para que la estación deje de escuchar.
+  \item Exportación de un resumen sin audio ni video.
+  \item Registro de cambios y consultas de datos para auditoría.
+\end{itemize}
+
+\clearpage
+
+% ---------------------------------------------------------------------------
+% PÁGINA 21 - HARDWARE
+% ---------------------------------------------------------------------------
+\section{Diseño físico propuesto}
+
+La estación puede construirse a partir de una computadora compacta, una cámara USB con obturador, un micrófono de escritorio o arreglo y una bocina amplificada. La carcasa debe estabilizar los componentes, facilitar el acceso a puertos y proteger la ventilación. No se requiere un robot móvil para cumplir el objetivo pedagógico.
+
+\begin{table}[H]
+\centering
+\caption{Componentes de la estación ClaudIA}
+\begin{tabularx}{\textwidth}{@{}>{\bfseries}p{1.35in}X>{\raggedright\arraybackslash}p{1.2in}@{}}
+\toprule
+Componente & Función & Estado \\
+\midrule
+Micrófono & Captura de voz y transcripción & Integración web inicial \\
+Bocina & Lectura de respuestas, pistas y avisos & Síntesis del navegador \\
+Cámara & Detección de presencia y contexto general & Base técnica parcial \\
+Unidad de cómputo & Núcleo, módulos y almacenamiento local & Base Jarvis funcional \\
+Carcasa & Estabilidad, señalización y protección & Por fabricar \\
+Conectividad & Servicios de IA y sincronización & Por validar en aula \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection*{Condiciones de instalación}
+La estación debe ubicarse en un punto visible, con alimentación protegida, cableado fuera de zonas de paso y acceso supervisado. El micrófono necesita una distancia adecuada para no captar toda la conversación del salón. La cámara debe cubrir únicamente la zona de interacción y usar un indicador luminoso, obturador y apagado físico.
+
+\subsection*{Operación mínima}
+\begin{itemize}
+  \item Botón o palabra de activación.
+  \item Indicador de escucha y de cámara activa.
+  \item Confirmación oral de las transcripciones.
+  \item Respuesta hablada a través de la bocina.
+  \item Modo de baja conectividad con actividades precargadas.
+  \item Reinicio seguro sin pérdida del progreso registrado.
+\end{itemize}
+
+\clearpage
+
+% ---------------------------------------------------------------------------
+% PÁGINA 22 - DESARROLLO DESDE JARVIS
+% ---------------------------------------------------------------------------
+\section{Desarrollo a partir de Jarvis}
+
+Jarvis aporta la base modular sobre la que se construye ClaudIA. El repositorio verificado en el commit \texttt{060e1e5} contiene núcleo conversacional, bus de eventos, comandos, sesión, memoria persistente, catálogo de lecciones, progreso educativo, lectura de documentos, voz web y puente de visión. Las pruebas automatizadas ejecutadas para este documento reportaron 52 aciertos y cero fallos.
+
+\begin{table}[H]
+\centering
+\caption{Estado de los componentes heredados}
+\small
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{1.55in}>{\raggedright\arraybackslash}X>{\centering\arraybackslash}p{0.85in}@{}}
+\toprule
+\textbf{Módulo} & \textbf{Función aprovechable} & \textbf{Estado} \\
+\midrule
+Núcleo y eventos & Recibir, enrutar y responder & Funcional \\
+Comandos & Separar intención y ejecución & Funcional \\
+Memoria y sesión & Mantener contexto y progreso & Funcional \\
+Educación & Lecciones, metas y estado & Funcional base \\
+Tutor & Explicar, practicar y dar pistas & Funcional base \\
+Documentos & Cargar textos de apoyo & Funcional TXT/MD \\
+Voz web & Micrófono y síntesis & Funcional en navegador \\
+Visión & Detección de presencia y puente Python & Base parcial \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+La transición a ClaudIA implica cinco cambios principales:
+\begin{enumerate}
+  \item renombrar la identidad y los textos visibles;
+  \item sustituir la experiencia centrada en un usuario por una sesión de aula con roles;
+  \item integrar la detección de presencia y entorno sin identificar personas;
+  \item integrar audio físico y un indicador de estado;
+  \item construir el panel docente y la política de retención.
+\end{enumerate}
+
+El cambio de nombre no altera la arquitectura. La refactorización se hará por módulos y con pruebas de regresión, para evitar que la nueva identidad rompa la memoria, el tutor o la interacción por voz.
+
+\clearpage
+
+% ---------------------------------------------------------------------------
+% PÁGINA 23 - EVALUACIÓN
+% ---------------------------------------------------------------------------
+\section{Plan de evaluación y nivel de madurez}
+
+La validación educativa se realizará con un piloto dentro del CETis 20. Primero se aplicará una línea base de organización, comprensión y disposición a usar la estación. Después se observarán sesiones guiadas por el docente y se recopilarán indicadores de uso. Al finalizar, se aplicará una evaluación de claridad, utilidad, accesibilidad y percepción de privacidad.
+
+\begin{table}[H]
+\centering
+\caption{Indicadores del piloto}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{1.75in}>{\raggedright\arraybackslash}X@{}}
+\toprule
+\textbf{Dimensión} & \textbf{Medida propuesta} \\
+\midrule
+Organización & Actividades registradas y completadas dentro del plazo \\
+Comprensión & Preguntas de práctica resueltas después de una pista \\
+Autonomía & Número de intentos antes de solicitar la solución \\
+Accesibilidad & Estudiantes que completan la interacción exclusivamente por voz \\
+Uso del docente & Temas agregados que generan nueva explicación \\
+Privacidad & Detección visible y sin conservación de video \\
+Estabilidad & Errores técnicos, interrupciones y recuperación de sesión \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection*{Nivel de madurez}
+La base Jarvis se encuentra en validación funcional de laboratorio. Para ClaudIA, la integración física de audio y visión aún debe completarse y probarse en condiciones de aula. Por ello, se declara un nivel de madurez tecnológica \textbf{TRL 4} para el conjunto: componentes integrados y probados en un entorno controlado, sin despliegue operativo completo.
+
+\shortsection{Criterios de salida}
+El piloto no se considerará exitoso por una demostración visual. Deberá mostrar estabilidad durante sesiones reales, comprensión aceptable de las solicitudes, recuperación ante fallos de red, uso seguro de la cámara y evidencia de que el docente puede aprovechar los resúmenes para tomar decisiones pedagógicas.
+
+\clearpage
+
+% ---------------------------------------------------------------------------
+% PÁGINA 24 - VIABILIDAD E IMPACTO
+% ---------------------------------------------------------------------------
+\section{Viabilidad e impacto}
+
+\subsection{Viabilidad técnica}
+La arquitectura ya dispone de módulos independientes y pruebas automatizadas. La unidad de cómputo puede reutilizar una computadora existente o una mini PC. El mayor reto técnico es la latencia del reconocimiento de voz y de la respuesta, seguido de la calidad de visión en condiciones variables de iluminación.
+
+\subsection{Viabilidad económica}
+La inversión inicial se compone de cómputo, cámara, micrófono, bocina, carcasa y adaptadores. El costo operativo incluye energía, conectividad, mantenimiento y, cuando se use, consumo de un servicio de IA. La implementación inicial no requiere un servidor dedicado. La solución debe priorizar componentes reemplazables y evitar una carcasa costosa que dificulte el mantenimiento.
+
+\subsection{Impacto pedagógico}
+La estación puede ofrecer explicaciones breves, preguntas de comprobación y práctica adicional mientras el docente atiende a otros estudiantes. El impacto no se medirá por cantidad de conversaciones, sino por la calidad de las oportunidades de pensar, corregir y volver a intentar.
+
+\subsection{Impacto docente}
+El resumen de temas frecuentes ayuda a preparar la siguiente clase con evidencia. El docente conserva el control de la intervención y no recibe un expediente de vigilancia del estudiante.
+
+\subsection{Impacto social y tecnológico}
+La propuesta busca reducir barreras de acceso al apoyo individual y acercar la IA educativa a un plantel público. Su diseño modular permite reutilizar componentes y adaptar contenidos a distintas especialidades de la DGETI.
+
+\clearpage
+
+\subsection{Impacto ambiental}
+Una estación fija de bajo consumo evita desplazamientos innecesarios y puede operar sobre equipo existente. La carcasa debe diseñarse para repararse, actualizar y reutilizar en lugar de reemplazarse completa.
+
+\subsection{Sostenibilidad operativa}
+El mantenimiento se organizará en tres niveles: revisión diaria del audio y la cámara, actualización mensual del contenido y revisión semestral de seguridad y respaldos. La estación debe admitir sustitución individual de micrófono, cámara o bocina para reducir costos y residuos. El docente conservará una lista de comprobación que permita poner el equipo en modo seguro si falla la conectividad o si una captura no es autorizada.
+
+\begin{table}[H]
+\centering
+\caption{Riesgos de implementación y medidas de mitigación}
+\small
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{1.45in}>{\raggedright\arraybackslash}X@{}}
+\toprule
+\textbf{Riesgo} & \textbf{Medida} \\
+\midrule
+Ruido del aula & Micrófono direccional y confirmación oral de la transcripción \\
+Detección poco confiable & Indicador de estado y activación alternativa por voz \\
+Error del modelo de IA & Preguntas de comprobación, fuentes internas y opción de consultar al docente \\
+Interrupción de red & Contenido local precargado y recuperación de la sesión \\
+Detección no autorizada & Activación visible, obturador físico y límites de horario \\
+Uso sin supervisión & Inicio de sesión, roles y bitácora de actividad administrativa \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\shortsection{Decisión de viabilidad}
+La propuesta es técnicamente viable con la base Jarvis existente y económicamente favorable si reutiliza equipo disponible. La continuidad depende de completar la integración física, definir reglas institucionales para cámara y micrófono, y demostrar que el docente puede convertir los resúmenes en decisiones pedagógicas concretas.
+
+\clearpage
+
+% ---------------------------------------------------------------------------
+% PÁGINA 25 - CONCLUSIÓN
+% ---------------------------------------------------------------------------
+\section{Conclusión y trabajo futuro}
+
+ClaudIA responde a una necesidad concreta de acompañamiento en grupos DGETI: ayudar a organizar el trabajo, explicar con paciencia y ofrecer una nueva oportunidad después del error. La estación física lleva esas funciones al mismo espacio donde ocurre el aprendizaje y combina tres lenguajes naturales para el estudiante: hablar, mostrar y escuchar.
+
+La encuesta del CETis 20 identifica una demanda clara de apoyo para organizarse y comprender. También muestra familiaridad con la IA, pero sólo una tercera parte del grupo verifica sus respuestas de forma sistemática. Esta diferencia justifica un tutor que pregunte, solicite argumentos y derive al docente cuando sea necesario.
+
+La propuesta no debe presentarse como un sistema terminado. Jarvis proporciona una base funcional y probada; la integración física, la visión aplicada, la política de privacidad y el piloto escolar constituyen el trabajo inmediato. La hipótesis educativa se evaluará con evidencia del grupo y no mediante afirmaciones anticipadas.
+
+\shortsection{Siguientes pasos}
+\begin{enumerate}
+  \item Renombrar y configurar la base técnica como ClaudIA.
+  \item Integrar micrófono, bocina y cámara con señalización física.
+  \item Validar la detección de presencia y entorno sin identificar personas.
+  \item Diseñar un conjunto inicial de lecciones de las especialidades del plantel.
+  \item Construir el panel agregado para el docente.
+  \item Validar consentimiento, retención y borrado de datos.
+  \item Ejecutar un piloto y reportar resultados con limitaciones explícitas.
+\end{enumerate}
+
+\shortsection{Aportación principal}
+ClaudIA transforma un conjunto de módulos conversacionales en una experiencia educativa situada. El valor no está en añadir una cámara o una bocina, sino en utilizarlas para crear acompañamiento pedagógico visible, verificable y centrado en el estudiante.
+
+\clearpage
+
+% ---------------------------------------------------------------------------
+% PÁGINAS 26-27 - REFERENCIAS
+% ---------------------------------------------------------------------------
+\begin{thebibliography}{99}
+\setlength{\itemsep}{4pt}
+
+\bibitem{cast2024}
+CAST. (2024). \textit{Universal Design for Learning Guidelines version 3.0}. \url{https://udlguidelines.cast.org/}
+
+\bibitem{dgeti2026}
+Dirección General de Educación Tecnológica Industrial y de Servicios. (2026). \textit{XXIX Concurso Nacional de Prototipos y Proyectos de Emprendimiento 2027}. Secretaría de Educación Pública.
+
+\bibitem{eef2018}
+Education Endowment Foundation. (2018). \textit{Metacognition and self-regulated learning: Guidance report}. \url{https://educationendowmentfoundation.org.uk/education-evidence/guidance-reports/metacognition}
+
+\bibitem{eef2021}
+Collin, J., y Quigley, A. (2021). \textit{Teacher feedback to improve pupil learning: Guidance report}. Education Endowment Foundation. \url{https://educationendowmentfoundation.org.uk/education-evidence/guidance-reports/feedback}
+
+\bibitem{gubareva2020}
+Gubareva, R., y Lopes, R. P. (2020). Virtual assistants for learning: A systematic literature review. \textit{Proceedings of the 12th International Conference on Computer Supported Education}, 551-557. \url{https://doi.org/10.5220/0009417605510557}
+
+\bibitem{inegi2026}
+Instituto Nacional de Estadística y Geografía e Instituto Federal de Telecomunicaciones. (2026). \textit{Encuesta Nacional sobre Disponibilidad y Uso de Tecnologías de la Información en los Hogares 2025: reporte de resultados}. \url{https://www.inegi.org.mx/programas/endutih/2025/}
+
+\bibitem{licona2024}
+Licona Quiterio, O. (2024). IA y educación en México: entre oportunidades y desafíos. \textit{RIESED. Revista Internacional de Estudios sobre Sistemas Educativos, 3}(15), 675-688.
+
+\bibitem{ma2014}
+Ma, W., Adesope, O. O., Nesbit, J. C., y Liu, Q. (2014). Intelligent tutoring systems and learning outcomes: A meta-analysis. \textit{Journal of Educational Psychology, 106}(4), 901-918. \url{https://doi.org/10.1037/a0037123}
+
+\bibitem{miao2024}
+Miao, F., y Shiohira, K. (2024). \textit{AI competency framework for students}. UNESCO. \url{https://doi.org/10.54675/JKJB9835}
+
+\bibitem{nist2023}
+National Institute of Standards and Technology. (2023). \textit{Artificial Intelligence Risk Management Framework (AI RMF 1.0)}. NIST AI 100-1. \url{https://doi.org/10.6028/NIST.AI.100-1}
+
+\bibitem{nist2024}
+National Institute of Standards and Technology. (2024). \textit{Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile}. NIST AI 600-1. \url{https://doi.org/10.6028/NIST.AI.600-1}
+
+\bibitem{sep2025mccms}
+Secretaría de Educación Pública. (2025). Acuerdo número 21/08/25 por el que se establece y regula el Marco Curricular Común de la Educación Media Superior. \textit{Diario Oficial de la Federación}.
+
+\bibitem{unesco2024guide}
+Miao, F., y Holmes, W. (2024). \textit{Guía para el uso de IA generativa en educación e investigación}. UNESCO. \url{https://unesdoc.unesco.org/ark:/48223/pf0000389227}
+
+\bibitem{zulfiqar2026}
+Zulfiqar, M., e Iqbal, U. (2026). A review of privacy, ethics, and governance challenges associated with camera-based AI surveillance in primary schools. \textit{Cureus Journal of Computer Science, 3}, es44389-026-00146-3. \url{https://doi.org/10.7759/s44389-026-00146-3}
+
+\end{thebibliography}
+
+\clearpage
+
+\section*{Anexo A. Ficha de control del prototipo}
+\addcontentsline{toc}{section}{Anexo A. Ficha de control del prototipo}
+
+\begin{tabularx}{\textwidth}{@{}>{\bfseries\color{navy}}p{1.45in}X@{}}
+\toprule
+Nombre & ClaudIA: Sistema Inteligente de Acompañamiento Didáctico para Grupos DGETI \\
+Base técnica & Repositorio Jarvis, commit \texttt{060e1e5} \\
+Código provisional & 26-AT625 \\
+Entorno de prueba & CETis 20, Ciudad del Carmen, Campeche \\
+Fuente diagnóstica & Encuesta SNCyT 2026, 122 registros \\
+Pruebas técnicas & 52 de 52 pruebas automatizadas superadas \\
+Estado & Integración de software con adaptaciones físicas pendientes \\
+Documento & 27 páginas, tamaño carta vertical \\
+\bottomrule
+\end{tabularx}
+
+\vspace{12pt}
+\subsection*{Inventario de evidencia}
+\begin{itemize}
+  \item Encuesta completa en \texttt{vendedores.xlsx}, hoja \texttt{SNCyT\_2026}.
+  \item Convocatoria vigente en PDF y JSON.
+  \item Prototipo anterior en \texttt{26-AT625 EDU BOT}.
+  \item Código base en el repositorio ClaudIA.
+  \item Fuentes bibliográficas y registro en la carpeta \texttt{bibliografia}.
+\end{itemize}
+
+\vspace{10pt}
+\subsection*{Declaración de alcance}
+Este informe describe un prototipo y una línea base de investigación. No afirma que ClaudIA haya producido ya una mejora comprobable en el aprendizaje. La validación con estudiantes, docentes y condiciones reales de aula forma parte de la siguiente etapa.
+
+\clearpage
+
+\section*{Anexo B. Protocolo mínimo de operación}
+\addcontentsline{toc}{section}{Anexo B. Protocolo mínimo de operación}
+
+\subsection*{Antes de usar ClaudIA}
+\begin{enumerate}
+  \item Verificar que la estación esté conectada a la alimentación y a la red autorizada.
+  \item Confirmar que la bocina reproduzca el tono de prueba y que el micrófono reciba voz.
+  \item Revisar que la cámara tenga el obturador abierto sólo para la actividad prevista.
+  \item Iniciar sesión con el rol correspondiente y comprobar el grupo activo.
+  \item Cargar la lección, el material o el conjunto de preguntas que se utilizará.
+\end{enumerate}
+
+\subsection*{Durante la interacción}
+\begin{enumerate}
+  \item Activar la estación con una frase o botón visible.
+  \item Confirmar el estudiante o grupo activo sin solicitar datos personales innecesarios.
+  \item Mantener la cámara limitada a la zona de interacción y sin grabación.
+  \item Permitir que ClaudIA formule una pregunta antes de entregar la solución.
+  \item Interrumpir la sesión si aparecen datos sensibles o contenidos ajenos a la clase.
+\end{enumerate}
+
+\subsection*{Al terminar}
+\begin{enumerate}
+  \item Cerrar la sesión y desactivar micrófono y cámara.
+  \item Revisar el resumen de temas que requieren apoyo docente.
+  \item Verificar que no se conserven cuadros de video ni registros de presencia innecesarios.
+  \item Registrar incidencias técnicas o pedagógicas relevantes.
+  \item Apagar la estación y cubrir la cámara si el equipo permanece en el aula.
+\end{enumerate}
+
+\subsection*{Condición de cuidado}
+ClaudIA registra señales de práctica y contexto de aprendizaje. No diagnostica condiciones de salud, no asigna calificaciones y no debe usarse para vigilar la conducta fuera de una actividad educativa autorizada.
+
+\end{document}

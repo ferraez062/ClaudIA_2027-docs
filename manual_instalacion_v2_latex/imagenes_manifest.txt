@@ -1,0 +1,6 @@
+Archivo                    Uso
+interfaz_inicial.png       Portada del manual de instalación
+estado_vision.png          Comprobación del soporte local para cámara
+
+La captura se obtuvo de la interfaz local de ClaudIA el 9 de noviembre
+de 2026. No contiene datos personales reales.

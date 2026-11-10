@@ -1,0 +1,48 @@
+# Entornos y secretos
+.env
+.env.*
+!.env.example
+config/admin.env
+**/config/admin.env
+
+# Datos personales y fuentes de trabajo
+*.xlsx
+*.xls
+data/
+**/data/
+
+# Dependencias y artefactos generados
+node_modules/
+**/node_modules/
+generated/
+**/generated/
+__pycache__/
+**/__pycache__/
+
+# Compilación LaTeX
+build/
+**/build/
+*.aux
+*.log
+*.out
+*.toc
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.lof
+*.lot
+
+# Archivos temporales
+tmp/
+*.tmp
+~$*
+
+# Sistema y editores
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Hojas de contacto usadas sólo durante revisión visual
+**/contacto_capturas.png
+

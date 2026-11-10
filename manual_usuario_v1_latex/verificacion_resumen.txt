@@ -1,0 +1,12 @@
+Documento: Manual de usuario de ClaudIA
+Código: 26-AT625
+Versión del manual: 1.0
+Fecha de verificación: 2026-11-09
+Paginas: 39
+Tamaño de pagina: 612 x 792 pts (letter)
+Version de PDF: 1.7
+Capturas de interfaz: 8
+Resultado de compilacion: correcta
+Warnings de compilacion: 0
+SHA-256 de main_editable.pdf: 9C19CE79739B24B738B7423D0DC48998B8E5263E71A94599E4D6FDD6FAC6524A
+
